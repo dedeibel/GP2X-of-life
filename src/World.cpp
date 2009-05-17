@@ -193,9 +193,26 @@ unsigned int World::getActiveCells() const
 	return activeCells;
 }
 
+void World::checkMinMax()
+{
+	min = Util::Vec2u(size.x / 2, size.y / 2);
+	max = Util::Vec2u(size.x / 2, size.y / 2);
+
+	for (unsigned int y = 1; y < size.y + 1; ++y) {
+		for (unsigned int x = 1; x < size.x + 1; ++x) {
+			if (currentWorld[y][x]) {
+				if (x <= min.x && x > 1) min.x = x - 1;
+				if (x >= max.x && x < size.x) max.x = x + 1;
+				if (y <= min.y && y > 1) min.y = y - 1;
+				if (y >= max.y && y < size.y) max.y = y + 1;
+			}
+		}
+	}
+}
+
 std::istream &GP2XOfLife::operator>>(std::istream &is, World &w)
 {
-	Util::Vec2u s;
+	Util::Vec2u s = Util::Vec2u();
 	char c = 0;
 
 	is >> s;
@@ -338,23 +355,6 @@ std::istream &GP2XOfLife::operator>>(std::istream &is, World &w)
 
 	w.checkMinMax();
 	return is;
-}
-
-void World::checkMinMax()
-{
-	min = Util::Vec2u(size.x / 2, size.y / 2);
-	max = Util::Vec2u(size.x / 2, size.y / 2);
-
-	for (unsigned int y = 1; y < size.y + 1; ++y) {
-		for (unsigned int x = 1; x < size.x + 1; ++x) {
-			if (currentWorld[y][x]) {
-				if (x <= min.x && x > 1) min.x = x - 1;
-				if (x >= max.x && x < size.x) max.x = x + 1;
-				if (y <= min.y && y > 1) min.y = y - 1;
-				if (y >= max.y && y < size.y) max.y = y + 1;
-			}
-		}
-	}
 }
 
 std::ostream &GP2XOfLife::operator<<(std::ostream &os, const World &w)

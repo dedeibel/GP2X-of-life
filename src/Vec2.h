@@ -59,7 +59,8 @@ class Vec2
 public:
 	Vec2()
 	{
-
+    x = T();
+    y = T();
 	}
 
 	Vec2(const T &x, const T &y)
@@ -190,8 +191,8 @@ template<class T> std::ostream& operator<<(std::ostream &os, const Vec2<T> &a)
 
 template<class T> std::istream& operator>>(std::istream &is, Vec2<T> &a)
 {
-	T x;
-	T y;
+	T x = T();
+	T y = T();
 	char c = 0;
 
 	is >> x;

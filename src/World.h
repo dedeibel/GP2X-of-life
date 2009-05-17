@@ -69,7 +69,7 @@ public:
 		++y;
 		++x;
 
-		if (currentWorld[y][x] = !currentWorld[y][x]) {
+		if ( (currentWorld[y][x] = (!currentWorld[y][x])) ) {
 			activeCells++;
 
 			if (x <= min.x && x > 1) min.x = x - 1;
@@ -119,8 +119,8 @@ public:
 	const Util::Vec2u getCells() const;
 	unsigned int getActiveCells() const;
 
-	friend std::istream &operator>>(std::istream &os, World &w);
 	friend std::ostream &operator<<(std::ostream &os, const World &w);
+	friend std::istream &operator>>(std::istream &os, World &w);
 
 private:
 	unsigned int neighbours(unsigned int xr, unsigned int yr);
@@ -129,6 +129,9 @@ private:
 
 	void checkMinMax();
 };
+
+	std::ostream &operator<<(std::ostream &os, const World &w);
+	std::istream &operator>>(std::istream &os, World &w);
 
 };
 

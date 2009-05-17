@@ -67,7 +67,7 @@ void Keyboard::pollInput()
 				case SDLK_SPACE:
 					active[ACTIVATE] = true;
 				break;
-				case SDLK_p:
+				case SDLK_a:
 					active[PAUSE] = true;
 				break;
 				case SDLK_l:
